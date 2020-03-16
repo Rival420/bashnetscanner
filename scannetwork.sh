@@ -15,7 +15,7 @@ if [[ $# -lt 1 ]];then
         exit 1 #exit the script
 fi
 
-#check for scannetwork dir 
+#check for scannetwork dir
 if [ ! -d scan_results ]; then
 	printf "[-] scan_results directory not present yet.\n"
 	printf "[+] making directory right now.\n"
@@ -56,9 +56,10 @@ for ip in $( ls scan_results/$1/ | cut -d"." -f1,2,3,4); do
         done
         printf "\n"
 	nmap -sC -sV -p$(cat scan_results/$1/$ip/ports | tr "\n" ", ") $ip -oN scan_results/$1/$ip/$ip.full >/dev/null
+	cat scan_results/$1/$ip/$ip.full
 	printf "\n"
 done
 
 printf "${BGreen}[+] The script has finished!${Color_Off}\n"
-printf "${Green} Results can be checked in each Directory in scan_results/$1/\n"
+printf "${Green}Results can be checked in each Directory in scan_results/$1/\n"
 exit 1
